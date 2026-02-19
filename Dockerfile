@@ -6,7 +6,7 @@ FROM nodered/node-red:latest
 WORKDIR /data
 
 # Copiem definició de dependències
-COPY package.json ./
+COPY package.json /data/package.json
 
 # Instal·lem nodes NO core
 RUN npm install --unsafe-perm --no-update-notifier --no-fund

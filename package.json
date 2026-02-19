@@ -1,0 +1,11 @@
+{
+  "name": "nodered-koyeb",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "node-red-contrib-influxdb": "*",
+    "node-red-contrib-ui-led": "*",
+    "node-red-dashboard": "*",
+    "node-red-node-email": "*"
+  }
+}

@@ -1,0 +1,2155 @@
+[
+    {
+        "id": "ac0fcc171b6337fd",
+        "type": "tab",
+        "label": "Cloud",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c761837e8e15821f",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "Intensitat",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"intensitat\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "0e81755287099a40"
+            ]
+        ]
+    },
+    {
+        "id": "d671ee6650607de6",
+        "type": "inject",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "props": [],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "c761837e8e15821f",
+                "a4b9405c951a29c7",
+                "2255b20da52ed2ac",
+                "800b09b37680d564",
+                "761ea59a7dd6b00a",
+                "d4c3aa3d1859901d"
+            ]
+        ]
+    },
+    {
+        "id": "0e81755287099a40",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload*1000",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round(payload, 0)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Intensitat",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "2fa0a4a6589f8994"
+            ]
+        ]
+    },
+    {
+        "id": "d601110ac1726f75",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "Lectura últim valor",
+        "info": "",
+        "x": 330,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "cf9572a214d19415",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "En temps real",
+        "info": "",
+        "x": 110,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2fa0a4a6589f8994",
+        "type": "ui_chart",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "046bfc026ae95ee2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 650,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4b9405c951a29c7",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "Potència",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"potencia\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "03b31691fec0e383"
+            ]
+        ]
+    },
+    {
+        "id": "03b31691fec0e383",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round(payload, 1)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Potència",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 160,
+        "wires": [
+            [
+                "2fa0a4a6589f8994"
+            ]
+        ]
+    },
+    {
+        "id": "2255b20da52ed2ac",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "Energia",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"energia\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 300,
+        "y": 200,
+        "wires": [
+            [
+                "dc32beeef9945ab3"
+            ]
+        ]
+    },
+    {
+        "id": "dc32beeef9945ab3",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round(payload, 2)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Energia",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "2fa0a4a6589f8994"
+            ]
+        ]
+    },
+    {
+        "id": "800b09b37680d564",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "Voltatge",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"voltatge\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "90f990e76037a8b4"
+            ]
+        ]
+    },
+    {
+        "id": "90f990e76037a8b4",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 240,
+        "wires": [
+            [
+                "429e3e8e749bb078"
+            ]
+        ]
+    },
+    {
+        "id": "429e3e8e749bb078",
+        "type": "ui_gauge",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "f44b0a4b41b3331e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Voltatge",
+        "label": "V",
+        "format": "{{value | number:1}}",
+        "min": 0,
+        "max": "300",
+        "colors": [
+            "#ff0000",
+            "#00ff00",
+            "#ff8000"
+        ],
+        "seg1": "215",
+        "seg2": "235",
+        "diff": false,
+        "className": "",
+        "x": 660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f85e4e01495500ce",
+        "type": "ui_gauge",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "f44b0a4b41b3331e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Freqüència",
+        "label": "Hz",
+        "format": "{{value | number:1}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#00ff00",
+            "#ff0000"
+        ],
+        "seg1": "45",
+        "seg2": "55",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "761ea59a7dd6b00a",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "Freqüència",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"frequencia\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "67a7de09c7a5efb8"
+            ]
+        ]
+    },
+    {
+        "id": "67a7de09c7a5efb8",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "f85e4e01495500ce"
+            ]
+        ]
+    },
+    {
+        "id": "d4c3aa3d1859901d",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "F.P.",
+        "query": "from(bucket:\"Dades PZEM-004T\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"pzem\" and r._field == \"fp\")\n  |> last()\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "2f759b06da4501db"
+            ]
+        ]
+    },
+    {
+        "id": "2f759b06da4501db",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]._value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "c73ac9211ab47c2f",
+                "997a80e84c922b43"
+            ]
+        ]
+    },
+    {
+        "id": "c73ac9211ab47c2f",
+        "type": "ui_gauge",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "f44b0a4b41b3331e",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Factor Potència",
+        "label": "",
+        "format": "{{value | number:2}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#ff0000",
+            "#ff8000",
+            "#00ff00"
+        ],
+        "seg1": "0.85",
+        "seg2": "0.96",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "28a89d8fb95cd0d1",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "Històric per rang de dates",
+        "info": "",
+        "x": 150,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5c7566d618b28e2e",
+        "type": "ui_date_picker",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Data inici",
+        "group": "6a497596ce20bb7b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 100,
+        "y": 420,
+        "wires": [
+            [
+                "1556d7d42ca180d2"
+            ]
+        ]
+    },
+    {
+        "id": "f57d62990e849a59",
+        "type": "ui_date_picker",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Data final",
+        "group": "6a497596ce20bb7b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 100,
+        "y": 480,
+        "wires": [
+            [
+                "ef4c831b4459d87f"
+            ]
+        ]
+    },
+    {
+        "id": "1556d7d42ca180d2",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dataInici",
+                "pt": "flow",
+                "to": "$fromMillis(payload)\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef4c831b4459d87f",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dataFinal",
+                "pt": "flow",
+                "to": "$fromMillis(payload)\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "784083560391c1fa",
+        "type": "ui_button",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "6a497596ce20bb7b",
+        "order": 9,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "label": "RUN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "parametreData",
+        "payloadType": "flow",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 670,
+        "y": 420,
+        "wires": [
+            [
+                "ee2d4b8f60998a34",
+                "6509e1a4381199a3"
+            ]
+        ]
+    },
+    {
+        "id": "ee2d4b8f60998a34",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "query",
+                "pt": "msg",
+                "to": "\"from(bucket: \\\"Dades PZEM-004T\\\") \t|> range(start: \"\t& $flowContext('dataInici') &\t\", stop: \"\t& $flowContext('dataFinal') &\t\") \t|> filter(fn: (r) => r._measurement == \\\"pzem\\\") \t|> filter(fn: (r) => r._field == \\\"\"\t& $flowContext('parametreData') &\t\"\\\") \t|> \"\t& $flowContext('operacio') &\t\"()\"\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 420,
+        "wires": [
+            [
+                "87156fc4fe3966c5"
+            ]
+        ]
+    },
+    {
+        "id": "a7e1aa264353572e",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "operacio",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed35a33758d47650",
+        "type": "ui_dropdown",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Operació",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "6a497596ce20bb7b",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Màxim",
+                "value": "max",
+                "type": "str"
+            },
+            {
+                "label": "Mínim",
+                "value": "min",
+                "type": "str"
+            },
+            {
+                "label": "Mitjana",
+                "value": "mean",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "a7e1aa264353572e"
+            ]
+        ]
+    },
+    {
+        "id": "87156fc4fe3966c5",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "",
+        "query": "\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 1010,
+        "y": 420,
+        "wires": [
+            [
+                "fbb287edc9fd20bb"
+            ]
+        ]
+    },
+    {
+        "id": "4fb75b75112521c5",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parametreData",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2af0d5d948c7551",
+        "type": "ui_dropdown",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Paràmetre",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "6a497596ce20bb7b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Intensitat",
+                "value": "intensitat",
+                "type": "str"
+            },
+            {
+                "label": "Voltatge",
+                "value": "voltatge",
+                "type": "str"
+            },
+            {
+                "label": "Potència",
+                "value": "potencia",
+                "type": "str"
+            },
+            {
+                "label": "Energia",
+                "value": "energia",
+                "type": "str"
+            },
+            {
+                "label": "Freqüència",
+                "value": "frequencia",
+                "type": "str"
+            },
+            {
+                "label": "Factor Potència",
+                "value": "fp",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 110,
+        "y": 600,
+        "wires": [
+            [
+                "4fb75b75112521c5"
+            ]
+        ]
+    },
+    {
+        "id": "fbb287edc9fd20bb",
+        "type": "ui_text",
+        "z": "ac0fcc171b6337fd",
+        "group": "6a497596ce20bb7b",
+        "order": 5,
+        "width": 3,
+        "height": 1,
+        "name": "número",
+        "label": "",
+        "format": "{{payload[0]._value | number:3}}",
+        "layout": "row-right",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#0000ff",
+        "x": 1180,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e46f649f970c8060",
+        "type": "ui_text",
+        "z": "ac0fcc171b6337fd",
+        "group": "6a497596ce20bb7b",
+        "order": 6,
+        "width": 1,
+        "height": 1,
+        "name": "unitat",
+        "label": "",
+        "format": "{{payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#0000ff",
+        "x": 1230,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "0c089d647f76ea78",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "A",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 480,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "6509e1a4381199a3",
+        "type": "switch",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "intensitat",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "voltatge",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "potencia",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "energia",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "frequencia",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fp",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 830,
+        "y": 580,
+        "wires": [
+            [
+                "0c089d647f76ea78"
+            ],
+            [
+                "66c7b7c0f2c60eb9"
+            ],
+            [
+                "f761f8b6fe374e63"
+            ],
+            [
+                "6e18f109c7fd43e4"
+            ],
+            [
+                "0a5198249c4f19f6"
+            ],
+            [
+                "b88cc642d2941ce7"
+            ]
+        ]
+    },
+    {
+        "id": "66c7b7c0f2c60eb9",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "V",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 520,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "f761f8b6fe374e63",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "W",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 560,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "6e18f109c7fd43e4",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "kWh",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 600,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "0a5198249c4f19f6",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hz",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 640,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "b88cc642d2941ce7",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 680,
+        "wires": [
+            [
+                "e46f649f970c8060"
+            ]
+        ]
+    },
+    {
+        "id": "a2b198a84b409d9e",
+        "type": "link in",
+        "z": "ac0fcc171b6337fd",
+        "name": "link in 8",
+        "links": [
+            "997a80e84c922b43"
+        ],
+        "x": 55,
+        "y": 1020,
+        "wires": [
+            [
+                "04a2452c26af16a6"
+            ]
+        ]
+    },
+    {
+        "id": "5e5e7f37a7738534",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "Notificació a l'operari",
+        "info": "",
+        "x": 130,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "8a93b616bc2d0b6d",
+        "type": "e-mail",
+        "z": "ac0fcc171b6337fd",
+        "d": true,
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "serrano.soler.arnau@gmail.com",
+        "dname": "",
+        "x": 740,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "04a2452c26af16a6",
+        "type": "switch",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0.8",
+                "vt": "num"
+            },
+            {
+                "t": "gte",
+                "v": "0.8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 1020,
+        "wires": [
+            [
+                "1127e891d4ec246c",
+                "820a653d747e222a"
+            ],
+            [
+                "aa95b3d6426b213a"
+            ]
+        ]
+    },
+    {
+        "id": "1127e891d4ec246c",
+        "type": "trigger",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "1",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "hr",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 340,
+        "y": 1000,
+        "wires": [
+            [
+                "8cc2565eb37b9299"
+            ]
+        ]
+    },
+    {
+        "id": "8cc2565eb37b9299",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "El factor potència ha baixat per sota de 0.8. Es recomana verificar el funcionament de la màquina.",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ALERTA DE FUNCIONAMENT",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 1000,
+        "wires": [
+            [
+                "8a93b616bc2d0b6d"
+            ]
+        ]
+    },
+    {
+        "id": "997a80e84c922b43",
+        "type": "link out",
+        "z": "ac0fcc171b6337fd",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "a2b198a84b409d9e"
+        ],
+        "x": 615,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b613d5ea83678aac",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "Històric per finestres temporals",
+        "info": "",
+        "x": 170,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "18090e6556e66ea1",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "rang",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3443540742047adc",
+        "type": "ui_dropdown",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Rang dades",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "dcc7bb99893f34e8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "1 hora",
+                "value": "1h",
+                "type": "str"
+            },
+            {
+                "label": "6 hores",
+                "value": "6h",
+                "type": "str"
+            },
+            {
+                "label": "12 hores",
+                "value": "12h",
+                "type": "str"
+            },
+            {
+                "label": "1 dia",
+                "value": "24h",
+                "type": "str"
+            },
+            {
+                "label": "1 setmana",
+                "value": "7d",
+                "type": "str"
+            },
+            {
+                "label": "1 mes",
+                "value": "1mo",
+                "type": "str"
+            },
+            {
+                "label": "2 mesos",
+                "value": "2mo",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 110,
+        "y": 700,
+        "wires": [
+            [
+                "18090e6556e66ea1"
+            ]
+        ]
+    },
+    {
+        "id": "c11ddf2b4fe2364d",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "finestra",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "412688867e826e6f",
+        "type": "ui_dropdown",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Finestra temporal",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "dcc7bb99893f34e8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "15 minuts",
+                "value": "15m",
+                "type": "str"
+            },
+            {
+                "label": "1 hora",
+                "value": "1h",
+                "type": "str"
+            },
+            {
+                "label": "1 dia",
+                "value": "1d",
+                "type": "str"
+            },
+            {
+                "label": "1 setmana",
+                "value": "7d",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 130,
+        "y": 760,
+        "wires": [
+            [
+                "c11ddf2b4fe2364d"
+            ]
+        ]
+    },
+    {
+        "id": "2ae653e24adad404",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "",
+        "query": "\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 390,
+        "y": 820,
+        "wires": [
+            [
+                "4b4696253fea98e6"
+            ]
+        ]
+    },
+    {
+        "id": "4b4696253fea98e6",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "minim",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"series\": \"minim\",\t  \"data\": payload.{\t    \"x\": $toMillis(_time),\t    \"y\": _value\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 820,
+        "wires": [
+            [
+                "e1c5eb70222e9ee7"
+            ]
+        ]
+    },
+    {
+        "id": "658da08163782ad3",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "min",
+        "rules": [
+            {
+                "t": "set",
+                "p": "query",
+                "pt": "msg",
+                "to": "\"from(bucket: \\\"Dades PZEM-004T\\\") \t|> range(start: -\"\t& $flowContext('rang') &\t\")\t|> filter(fn: (r) => r._measurement == \\\"pzem\\\") \t|> filter(fn: (r) => r._field == \\\"\"\t& $flowContext('parametreFinestra') &\t\"\\\")\t|> aggregateWindow(every: \"\t& $flowContext('finestra') &\t\", fn: min, createEmpty: false)\"\t\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 820,
+        "wires": [
+            [
+                "2ae653e24adad404"
+            ]
+        ]
+    },
+    {
+        "id": "f0d74d39897e273f",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "max",
+        "rules": [
+            {
+                "t": "set",
+                "p": "query",
+                "pt": "msg",
+                "to": "\"from(bucket: \\\"Dades PZEM-004T\\\") \t|> range(start: -\"\t& $flowContext('rang') &\t\")\t|> filter(fn: (r) => r._measurement == \\\"pzem\\\") \t|> filter(fn: (r) => r._field == \\\"\"\t& $flowContext('parametreFinestra') &\t\"\\\")\t|> aggregateWindow(every: \"\t& $flowContext('finestra') &\t\", fn: max, createEmpty: false)\"\t\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 860,
+        "wires": [
+            [
+                "f8988f18daac7ebd"
+            ]
+        ]
+    },
+    {
+        "id": "911d6d2dadd66950",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "mean",
+        "rules": [
+            {
+                "t": "set",
+                "p": "query",
+                "pt": "msg",
+                "to": "\"from(bucket: \\\"Dades PZEM-004T\\\") \t|> range(start: -\"\t& $flowContext('rang') &\t\")\t|> filter(fn: (r) => r._measurement == \\\"pzem\\\") \t|> filter(fn: (r) => r._field == \\\"\"\t& $flowContext('parametreFinestra') &\t\"\\\")\t|> aggregateWindow(every: \"\t& $flowContext('finestra') &\t\", fn: mean, createEmpty: false)\"\t\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 900,
+        "wires": [
+            [
+                "1ca2c82cb958c251"
+            ]
+        ]
+    },
+    {
+        "id": "f8988f18daac7ebd",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "",
+        "query": "\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 390,
+        "y": 860,
+        "wires": [
+            [
+                "d10bb076e2a502fb"
+            ]
+        ]
+    },
+    {
+        "id": "1ca2c82cb958c251",
+        "type": "influxdb in",
+        "z": "ac0fcc171b6337fd",
+        "influxdb": "125b07e909f726e0",
+        "name": "",
+        "query": "\n\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "2gsmt-grupa1",
+        "x": 390,
+        "y": 900,
+        "wires": [
+            [
+                "c5aedba014c0239d"
+            ]
+        ]
+    },
+    {
+        "id": "d10bb076e2a502fb",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "màxim",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"series\": \"màxim\",\t  \"data\": payload.{\t    \"x\": $toMillis(_time),\t    \"y\": _value\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 860,
+        "wires": [
+            [
+                "e1c5eb70222e9ee7"
+            ]
+        ]
+    },
+    {
+        "id": "c5aedba014c0239d",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "mitjana",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"series\": \"mitjana\",\t  \"data\": payload.{\t    \"x\": $toMillis(_time),\t    \"y\": _value\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 900,
+        "wires": [
+            [
+                "e1c5eb70222e9ee7"
+            ]
+        ]
+    },
+    {
+        "id": "95b7a275d55125fc",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t  {\t    \"series\": payload.series,\t    \"data\": $map(payload, function($v){ $v.data }),\t    \"labels\": [\"\"]\t  }\t]\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 860,
+        "wires": [
+            [
+                "852b266fa86fdc03",
+                "8c992003ff5b31f0"
+            ]
+        ]
+    },
+    {
+        "id": "b60692ab095bc443",
+        "type": "ui_button",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "dcc7bb99893f34e8",
+        "order": 6,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "label": "RUN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 860,
+        "wires": [
+            [
+                "658da08163782ad3",
+                "f0d74d39897e273f",
+                "911d6d2dadd66950"
+            ]
+        ]
+    },
+    {
+        "id": "e2079787a0d0fed9",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parametreFinestra",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66a34182a5c76496",
+        "type": "ui_dropdown",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "label": "Paràmetre",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "dcc7bb99893f34e8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Intensitat",
+                "value": "intensitat",
+                "type": "str"
+            },
+            {
+                "label": "Voltatge",
+                "value": "voltatge",
+                "type": "str"
+            },
+            {
+                "label": "Potència",
+                "value": "potencia",
+                "type": "str"
+            },
+            {
+                "label": "Energia",
+                "value": "energia",
+                "type": "str"
+            },
+            {
+                "label": "Freqüència",
+                "value": "frequencia",
+                "type": "str"
+            },
+            {
+                "label": "Factor Potència",
+                "value": "fp",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 510,
+        "y": 760,
+        "wires": [
+            [
+                "e2079787a0d0fed9"
+            ]
+        ]
+    },
+    {
+        "id": "d02de91a19f29aa8",
+        "type": "inject",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "784083560391c1fa"
+            ]
+        ]
+    },
+    {
+        "id": "e1c5eb70222e9ee7",
+        "type": "join",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 710,
+        "y": 860,
+        "wires": [
+            [
+                "95b7a275d55125fc"
+            ]
+        ]
+    },
+    {
+        "id": "852b266fa86fdc03",
+        "type": "ui_chart",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "group": "dcc7bb99893f34e8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "750",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1010,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c992003ff5b31f0",
+        "type": "debug",
+        "z": "ac0fcc171b6337fd",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "a4dbdd63915c72ba",
+        "type": "ui_led",
+        "z": "ac0fcc171b6337fd",
+        "order": 1,
+        "group": "aeec0b1a801c52ce",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "El factor potència a baixat per sota de 0.8. Es recomana verificar el funcionament de la màquina.",
+                "valueType": "str"
+            },
+            {
+                "color": "#c0c0c0",
+                "value": "No hi ha alarmes",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 530,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d9969747abd95d4b",
+        "type": "ui_text",
+        "z": "ac0fcc171b6337fd",
+        "group": "aeec0b1a801c52ce",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": "14",
+        "color": "#000000",
+        "x": 530,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "aa95b3d6426b213a",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "No hi ha alarmes",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 1120,
+        "wires": [
+            [
+                "a4dbdd63915c72ba",
+                "d9969747abd95d4b"
+            ]
+        ]
+    },
+    {
+        "id": "820a653d747e222a",
+        "type": "change",
+        "z": "ac0fcc171b6337fd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "El factor potència ha baixat per sota de 0.8. Es recomana verificar el funcionament de la màquina.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 1060,
+        "wires": [
+            [
+                "a4dbdd63915c72ba",
+                "d9969747abd95d4b"
+            ]
+        ]
+    },
+    {
+        "id": "1893d6f6a6d226c9",
+        "type": "ui_spacer",
+        "z": "ac0fcc171b6337fd",
+        "name": "spacer",
+        "group": "6a497596ce20bb7b",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "2d6c7a89ca8717fc",
+        "type": "ui_spacer",
+        "z": "ac0fcc171b6337fd",
+        "name": "spacer",
+        "group": "6a497596ce20bb7b",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "45d9e792c4a3721b",
+        "type": "ui_spacer",
+        "z": "ac0fcc171b6337fd",
+        "name": "spacer",
+        "group": "6a497596ce20bb7b",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "24196fd94aba2b8a",
+        "type": "ui_spacer",
+        "z": "ac0fcc171b6337fd",
+        "name": "spacer",
+        "group": "dcc7bb99893f34e8",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b191f12a62a8b234",
+        "type": "ui_spacer",
+        "z": "ac0fcc171b6337fd",
+        "name": "spacer",
+        "group": "dcc7bb99893f34e8",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "125b07e909f726e0",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "Dades",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://eu-central-1-1.aws.cloud2.influxdata.com",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "046bfc026ae95ee2",
+        "type": "ui_group",
+        "name": "Temps real (Int./Pot./Energ.)",
+        "tab": "66822c5de83804e8",
+        "order": 1,
+        "disp": false,
+        "width": 9,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f44b0a4b41b3331e",
+        "type": "ui_group",
+        "name": "Temps real (V/Hz/FP)",
+        "tab": "66822c5de83804e8",
+        "order": 2,
+        "disp": false,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6a497596ce20bb7b",
+        "type": "ui_group",
+        "name": "Històric per dates",
+        "tab": "66822c5de83804e8",
+        "order": 3,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dcc7bb99893f34e8",
+        "type": "ui_group",
+        "name": "Històric per finestres",
+        "tab": "66822c5de83804e8",
+        "order": 4,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aeec0b1a801c52ce",
+        "type": "ui_group",
+        "name": "Alarmes",
+        "tab": "66822c5de83804e8",
+        "order": 5,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "66822c5de83804e8",
+        "type": "ui_tab",
+        "name": "Cloud",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "e406b2e86a29ce0b",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-email": "5.1.0",
+            "node-red-contrib-ui-led": "0.4.11"
+        }
+    }
+]

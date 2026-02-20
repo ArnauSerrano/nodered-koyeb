@@ -1134,7 +1134,6 @@
         "id": "8a93b616bc2d0b6d",
         "type": "e-mail",
         "z": "ac0fcc171b6337fd",
-        "d": true,
         "server": "smtp.gmail.com",
         "port": "465",
         "authtype": "BASIC",
@@ -2013,6 +2012,16 @@
         ]
     },
     {
+        "id": "24bd92aa57c3576a",
+        "type": "comment",
+        "z": "ac0fcc171b6337fd",
+        "name": "API Token",
+        "info": "aqxr smgw arqz wzru ",
+        "x": 680,
+        "y": 960,
+        "wires": []
+    },
+    {
         "id": "1893d6f6a6d226c9",
         "type": "ui_spacer",
         "z": "ac0fcc171b6337fd",
@@ -2142,7 +2151,7 @@
         "hidden": false
     },
     {
-        "id": "2ad7be59838d3e84",
+        "id": "72fe762ce7178e3c",
         "type": "global-config",
         "env": [],
         "modules": {

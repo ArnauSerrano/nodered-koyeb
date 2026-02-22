@@ -629,7 +629,7 @@
         "payloadType": "flow",
         "topic": "topic",
         "topicType": "msg",
-        "x": 670,
+        "x": 510,
         "y": 420,
         "wires": [
             [
@@ -657,7 +657,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 680,
         "y": 420,
         "wires": [
             [
@@ -744,7 +744,7 @@
         "precision": "",
         "retentionPolicy": "",
         "org": "2gsmt-grupa1",
-        "x": 1010,
+        "x": 850,
         "y": 420,
         "wires": [
             [
@@ -852,7 +852,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#0000ff",
-        "x": 1180,
+        "x": 1020,
         "y": 420,
         "wires": []
     },
@@ -873,7 +873,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#0000ff",
-        "x": 1230,
+        "x": 1070,
         "y": 580,
         "wires": []
     },
@@ -896,7 +896,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 480,
         "wires": [
             [
@@ -946,7 +946,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 6,
-        "x": 830,
+        "x": 670,
         "y": 580,
         "wires": [
             [
@@ -988,7 +988,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 520,
         "wires": [
             [
@@ -1015,7 +1015,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 560,
         "wires": [
             [
@@ -1042,7 +1042,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 600,
         "wires": [
             [
@@ -1069,7 +1069,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 640,
         "wires": [
             [
@@ -1096,7 +1096,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 860,
         "y": 680,
         "wires": [
             [
@@ -1784,35 +1784,6 @@
         ]
     },
     {
-        "id": "d02de91a19f29aa8",
-        "type": "inject",
-        "z": "ac0fcc171b6337fd",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 540,
-        "y": 420,
-        "wires": [
-            [
-                "784083560391c1fa"
-            ]
-        ]
-    },
-    {
         "id": "e1c5eb70222e9ee7",
         "type": "join",
         "z": "ac0fcc171b6337fd",
@@ -1899,7 +1870,7 @@
         "colorForValue": [
             {
                 "color": "#ff0000",
-                "value": "El factor potència a baixat per sota de 0.8. Es recomana verificar el funcionament de la màquina.",
+                "value": "El factor potència ha baixat per sota de 0.8. Es recomana verificar el funcionament de la màquina.",
                 "valueType": "str"
             },
             {
@@ -1998,7 +1969,7 @@
         "type": "comment",
         "z": "ac0fcc171b6337fd",
         "name": "API Token",
-        "info": "aqxr smgw arqz wzru ",
+        "info": "aqxr smgw arqz wzru",
         "x": 680,
         "y": 960,
         "wires": []
@@ -2133,7 +2104,7 @@
         "hidden": false
     },
     {
-        "id": "28af91301cfc5edc",
+        "id": "0d21aec997363621",
         "type": "global-config",
         "env": [],
         "modules": {

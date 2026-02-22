@@ -10,11 +10,6 @@ FROM nodered/node-red:latest
 # (La imatge de Node-RED per defecte no treballa com a root per seguretat.)
 USER root
 
-# Variables d'entorn fixes dins la imatge
-ENV INFLUX_TOKEN=BSOR1tgEfAcjUWp13zVLrIsLArQkEGG7ExwERnsDStCaTDEvFLBgYhuLH7c9eXpoW4PpmlqOG2RML-xKlFwCtA==
-ENV GMAIL_USERID=arnau.serranosoler@escolaindustrial.org
-ENV GMAIL_PASSWORD="aqxr smgw arqz wzru"
-
 # Copiem el fitxer package.json dins del directori /data del contenidor.
 # Aquest fitxer conté la llista de nodes addicionals que volem instal·lar
 # (per exemple node-red-dashboard o node-red-contrib-influxdb).

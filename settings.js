@@ -1,21 +1,21 @@
 module.exports = {
 
-    // Port del contenidor (Koyeb el passa per env)
+    // Port (Koyeb el defineix)
     uiPort: process.env.PORT || 1880,
 
-    // Permet usar variables ${VAR} dins dels nodes
-    functionGlobalContext: {
-    },
-
-    // IMPORTANT: fixa el secret perquè no canviïn les credencials a cada deploy
+    // IMPORTANT: secret fix via variable d'entorn
     credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET,
+
+    // Exposem variables al runtime
+    functionGlobalContext: {
+        GMAIL_USERID: process.env.GMAIL_USERID,
+        GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
+        INFLUX_TOKEN: process.env.INFLUX_TOKEN
+    },
 
     // Directori de treball
     userDir: '/data',
 
-    // Permet llegir variables d'entorn dins dels flows
-    env: process.env,
-
-    // Configuració estàndard
+    // Fitxer de flows
     flowFile: 'flows.json'
 }

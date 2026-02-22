@@ -30,6 +30,7 @@
         "id": "d671ee6650607de6",
         "type": "inject",
         "z": "ac0fcc171b6337fd",
+        "d": true,
         "name": "",
         "props": [],
         "repeat": "1",
@@ -2104,7 +2105,7 @@
         "hidden": false
     },
     {
-        "id": "0d21aec997363621",
+        "id": "8a4940192330dd5b",
         "type": "global-config",
         "env": [],
         "modules": {

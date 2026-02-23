@@ -1964,7 +1964,7 @@
         "type": "comment",
         "z": "ac0fcc171b6337fd",
         "name": "API Token email",
-        "info": "aqxr smgw arqz wzru",
+        "info": "daja xqdj fqnk ewcx",
         "x": 860,
         "y": 80,
         "wires": []
@@ -1974,7 +1974,7 @@
         "type": "comment",
         "z": "ac0fcc171b6337fd",
         "name": "API Token InfluxDB",
-        "info": "BSOR1tgEfAcjUWp13zVLrIsLArQkEGG7ExwERnsDStCaTDEvFLBgYhuLH7c9eXpoW4PpmlqOG2RML-xKlFwCtA==",
+        "info": "RNn8wY4NsQj_rnch9cNISqE7SJEFcQiVPlK03Js9fPHrwlj2lmWbGfdWISWH-2NDeXmSUTBbSVfbGPZ4-GzVdA==",
         "x": 870,
         "y": 40,
         "wires": []
@@ -2254,7 +2254,7 @@
         "hidden": false
     },
     {
-        "id": "cd383222c09bf83f",
+        "id": "bf2f25c2409ef9e5",
         "type": "global-config",
         "env": [],
         "modules": {

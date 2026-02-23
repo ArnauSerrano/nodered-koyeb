@@ -27,12 +27,6 @@ RUN cd /data && npm install --unsafe-perm --no-update-notifier --no-fund
 # (nodes, connexions, configuracions, etc.)
 COPY flows.json /data/flows.json
 
-# Copiem settings.js perquè Node-RED utilitzi la nostra configuració personalitzada:
-# - Fixem credentialSecret via variable d'entorn per evitar que canviïn les credencials a cada redeploy
-# - Permetem l'ús de variables ${VAR} definides a Koyeb
-# - Garantim que la configuració sigui consistent entre builds
-COPY settings.js /data/settings.js
-
 # Tornem a l'usuari original "node-red".
 # Això és una bona pràctica de seguretat:
 # el contenidor NO s'executa com a root en producció.
